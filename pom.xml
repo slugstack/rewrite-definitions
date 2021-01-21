@@ -162,8 +162,6 @@
 										<arg>--pinentry-mode</arg>
 										<arg>loopback</arg>
 									</gpgArguments>
-									<keyname>7DAF8E12EBB42183</keyname>
-									<passphrase>TESTING</passphrase> <!-- TODO I know, very secure -->
 								</configuration>
 							</execution>
 						</executions>
