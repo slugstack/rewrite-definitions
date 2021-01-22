@@ -28,13 +28,19 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: configure-git-user
+        ## # https://github.community/t/github-actions-bot-email-address/17204/6
         run: |
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
 
       - name: release
         timeout-minutes: 30
-        run: ./mvnw --settings=${{ github.workspace }}/settings.xml --file=pom.xml -Prelease --batch-mode release:prepare release:perform
+        ## personally, I prefer longform cli flags for readability, but that's just me.
+        ## reference of maven flag shorthand equivalents:
+        ## https://books.sonatype.com/mvnref-book/reference/running-sect-options.html
+        ##
+        ## run: ./mvnw -s ${{ github.workspace }}/settings.xml -f pom.xml -Prelease -B release:prepare release:perform
+        run: ./mvnw --settings=${{ github.workspace }}/settings.xml --file=pom.xml --activate-profiles=release --batch-mode release:prepare release:perform
         env:
           GITHUB_TOKEN: ${{ github.token }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
@@ -43,6 +49,6 @@ jobs:
 
       - name: rollback
         if: ${{ failure() }}
-        run: ./mvnw --settings=${{github.workspace}}/settings.xml --file=pom.xml -Prelease --batch-mode release:rollback
+        run: ./mvnw --settings=${{github.workspace}}/settings.xml --file=pom.xml --activate-profiles=release --batch-mode release:rollback
         env:
           GITHUB_TOKEN: ${{ github.token }}
