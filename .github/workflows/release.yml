@@ -34,15 +34,15 @@ jobs:
 
       - name: release
         timeout-minutes: 1
-        run: ./mvnw --settings ${{ github.workspace }}/settings.xml --file pom.xml -Prelease --batch-mode release:prepare release:perform
+        run: ./mvnw --settings=${{ github.workspace }}/settings.xml --file=pom.xml -Prelease --batch-mode release:prepare release:perform
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
       - name: rollback
         if: ${{ failure() }}
-        run: ./mvnw --settings ${{ github.workspace }}/settings.xml --file pom.xml -Prelease --batch-mode release:rollback
+        run: ./mvnw --settings=${{github.workspace}}/settings.xml --file=pom.xml -Prelease --batch-mode release:rollback
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}

@@ -32,5 +32,5 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: build
-        run: mvn --settings ${{ github.workspace }}/settings.xml --file pom.xml --no-transfer-progress --batch-mode clean verify
+        run: mvn --settings=${{ github.workspace }}/settings.xml --file=pom.xml --no-transfer-progress --batch-mode clean verify
         # run: ./mvnw --no-transfer-progress -B clean verify --file pom.xml
