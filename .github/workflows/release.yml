@@ -1,7 +1,9 @@
+## marked up with extra comments to be used as a reference
 ---
 name: release
 
 on:
+  ## means this is manually activated from the "actions" UI
   workflow_dispatch: {}
 
 jobs:
@@ -9,12 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      ## https://github.com/actions/setup-java
+      ## in some of these "with" maps, we're explicitly stating default values (e.g. "settings-path");
+      ## although unnecessary, it's helpful as a reference.
       - name: set-up-jdk
         uses: actions/setup-java@v1
         with:
           java-version: "11"
-          server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
-          settings-path: ${{ github.workspace }} # location for the settings.xml file; this is the default value, but helps to make it explicit
+          server-id: ossrh # value of the distributionManagement/repository/id field of the pom.xml
+          settings-path: ${{ github.workspace }} # location to place the generated settings.xml file
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
@@ -27,6 +33,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      ## configuring the git user is necessary since the maven-release-plugin performs a git commit and push back
+      ## to scm with the updated pom.xml and updated git tags.
       - name: configure-git-user
         ## # https://github.community/t/github-actions-bot-email-address/17204/6
         run: |
@@ -34,6 +42,10 @@ jobs:
           git config user.name "github-actions[bot]"
 
       - name: release
+        ## github actions has a cumulative job timeout of 360 minutes (6 hours) before killing the job;
+        ## here we are setting a timeout specifically on this release step to 30 minutes: if it times out,
+        ## mark the step as "failed".
+        ## https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepstimeout-minutes
         timeout-minutes: 30
         ## personally, I prefer longform cli flags for readability, but that's just me.
         ## reference of maven flag shorthand equivalents:
@@ -47,8 +59,12 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
 
+        ## note that if we _cancel_ a job, it exits as soon as possible.
+        ## so anything expected to execute on "failure()", e.g. "rollback", will _not_ run if a whole job is cancelled.
       - name: rollback
         if: ${{ failure() }}
         run: ./mvnw --settings=${{github.workspace}}/settings.xml --file=pom.xml --activate-profiles=release --batch-mode release:rollback
         env:
+          ## https://docs.github.com/en/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
+          ## ${{secrets.GITHUB_TOKEN}} is acceptable, too
           GITHUB_TOKEN: ${{ github.token }}
