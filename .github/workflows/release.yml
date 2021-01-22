@@ -51,8 +51,8 @@ jobs:
         ## reference of maven flag shorthand equivalents:
         ## https://books.sonatype.com/mvnref-book/reference/running-sect-options.html
         ##
-        ## run: ./mvnw -s ${{ github.workspace }}/settings.xml -f pom.xml -Prelease -B release:prepare release:perform
-        run: ./mvnw --settings=${{ github.workspace }}/settings.xml --file=pom.xml --activate-profiles=release,release-automation --batch-mode release:prepare release:perform
+        ## run: ./mvnw -s ${{ github.workspace }}/settings.xml -f pom.xml -Prelease -B release:prepare help:active-profiles release:perform
+        run: ./mvnw --settings=${{ github.workspace }}/settings.xml --file=pom.xml --activate-profiles=release,release-automation --batch-mode help:active-profiles release:prepare release:perform
         env:
           GITHUB_TOKEN: ${{ github.token }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
@@ -63,7 +63,7 @@ jobs:
         ## so anything expected to execute on "failure()", e.g. "rollback", will _not_ run if a whole job is cancelled.
       - name: rollback
         if: ${{ failure() }}
-        run: ./mvnw --settings=${{github.workspace}}/settings.xml --file=pom.xml --activate-profiles=release,release-automation --batch-mode release:rollback
+        run: ./mvnw --settings=${{github.workspace}}/settings.xml --file=pom.xml --activate-profiles=release,release-automation --batch-mode help:active-profiles release:rollback
         env:
           ## https://docs.github.com/en/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
           ## ${{secrets.GITHUB_TOKEN}} is acceptable, too
