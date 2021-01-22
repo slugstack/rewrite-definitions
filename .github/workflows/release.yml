@@ -33,6 +33,7 @@ jobs:
           git config user.name "github-actions[bot]"
 
       - name: release
+        timeout-minutes: 1
         run: ./mvnw --settings ${{ github.workspace }}/settings.xml --file pom.xml -Prelease --batch-mode release:prepare release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
