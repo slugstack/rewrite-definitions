@@ -4,7 +4,7 @@
 
 	<groupId>io.slugstack.oss</groupId>
 	<artifactId>rewrite-definitions</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<name>rewrite-definitions</name>
 
 	<description>an example of releasing a java project using github actions</description>
@@ -36,7 +36,7 @@
 		<developerConnection>scm:git:https://github.com/slugstack/rewrite-definitions.git</developerConnection>
 		<url>scm:git:https://github.com/slugstack/rewrite-definitions.git</url>
 		<!-- <tag>0.0.1-SNAPSHOT</tag> -->
-		<tag>HEAD</tag>
+		<tag>rewrite-definitions-0.0.3</tag>
 	</scm>
 
 	<properties>
