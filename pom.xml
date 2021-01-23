@@ -4,7 +4,7 @@
 
 	<groupId>io.slugstack.oss</groupId>
 	<artifactId>rewrite-definitions</artifactId>
-	<version>0.0.6-SNAPSHOT</version>
+	<version>0.0.6</version>
 	<name>rewrite-definitions</name>
 
 	<description>an example of publishing a java project using github actions</description>
@@ -36,7 +36,7 @@
 		<developerConnection>${developerConnectionUrl}</developerConnection>
 		<url>https://github.com/slugstack/rewrite-definitions</url>
 		<!-- <tag>0.0.1-SNAPSHOT</tag> -->
-		<tag>0.0.6</tag>
+		<tag>rewrite-definitions-0.0.6</tag>
 	</scm>
 
 	<properties>
