@@ -7,7 +7,7 @@
 	<version>0.0.5-SNAPSHOT</version>
 	<name>rewrite-definitions</name>
 
-	<description>an example of releasing a java project using github actions</description>
+	<description>an example of publishing a java project using github actions</description>
 
 	<url>https://github.com/slugstack/rewrite-definitions</url>
 
@@ -27,14 +27,14 @@
 	</developers>
 
 	<organization>
-		<name>slugstack.io</name>
-		<url>https://slugstack.io</url>
+		<name>sslugstack.io</name>
+		<url>http://slugstack.io</url>
 	</organization>
 
 	<scm>
 		<connection>scm:git:https://github.com:slugstack/rewrite-definitions.git</connection>
 		<developerConnection>${developerConnectionUrl}</developerConnection>
-		<url>scm:git:https://github.com/slugstack/rewrite-definitions.git</url>
+		<url>https://github.com/slugstack/rewrite-definitions</url>
 		<!-- <tag>0.0.1-SNAPSHOT</tag> -->
 		<tag>HEAD</tag>
 	</scm>
