@@ -38,8 +38,8 @@ jobs:
       - name: configure-git-user
         ## # https://github.community/t/github-actions-bot-email-address/17204/6
         run: |
-          git config user.email "aaron@moderne.io"
-          git config user.name "openrewrite-ci-bot"
+          git config user.email "aegershman@gmail.com"
+          git config user.name "slugstack"
 
       - name: release
         ## github actions has a cumulative job timeout of 360 minutes (6 hours) before killing the job;
