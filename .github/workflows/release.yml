@@ -38,7 +38,7 @@ jobs:
       - name: configure-git-user
         ## # https://github.community/t/github-actions-bot-email-address/17204/6
         run: |
-          git config user.email "aegershman@gmail.com"
+          git config user.email "github-action@users.noreply.github.com"
           git config user.name "slugstack"
 
       - name: release
