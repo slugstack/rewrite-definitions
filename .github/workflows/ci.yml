@@ -24,7 +24,7 @@ jobs:
           java-version: ${{ matrix.java }}
           settings-path: ${{ github.workspace }} # location for the settings.xml file; this is the default value, but helps to make it explicit
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v2.1.4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
