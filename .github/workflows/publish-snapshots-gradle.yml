@@ -1,4 +1,3 @@
-## marked up with extra comments to be used as a reference
 ---
 name: publish-snapshots
 
@@ -6,24 +5,25 @@ name: publish-snapshots
 #   push:
 #     branches:
 #       - master
-
+#     tags:
+#       # accepts globs; this is currently a regex, but there's inspo (https://circleci.com/docs/2.0/workflows/#using-contexts-and-filtering-in-your-workflows)
+#       # - /^v\d+\.\d+\.\d+(-rc\.\d+)?$/
+#       # - v[0-9].[0-9].[0-9]
+#       - v[0-9].[0-9].[0-9]-rc.[0-9]
+#   workflow_dispatch: {}
 
 on:
   push:
-    tags:
-      # accepts globs; this is currently a regex, but there's inspo (https://circleci.com/docs/2.0/workflows/#using-contexts-and-filtering-in-your-workflows)
-      # - /^v\d+\.\d+\.\d+(-rc\.\d+)?$/
-      # - v[0-9].[0-9].[0-9]
-      - v[0-9].[0-9].[0-9]-rc.[0-9]
-
+    branches:
+      - master
   workflow_dispatch: {}
 
+env:
+  GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    env:
-      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
     steps:
       - uses: actions/checkout@v2
         with:
@@ -46,20 +46,14 @@ jobs:
       - name: setup-cache
         uses: actions/cache@v2.1.4
         with:
-          path: ~/.gradle/caches # might as well cache the wrapper, too. but, eh, just showing.
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      ## configuring the git user is necessary since the maven-release-plugin performs a git commit and push back
-      ## to scm with the updated pom.xml and updated git tags.
-      - name: configure-git-user
-        ## # https://github.community/t/github-actions-bot-email-address/17204/6
-        run: |
-          git config user.email "github-action@users.noreply.github.com"
-          git config user.name "slugstack"
-
-      - name: release
+      - name: publish-snapshots
         timeout-minutes: 30
         run: ./gradlew publish
         env:
