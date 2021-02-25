@@ -15,7 +15,7 @@ name: publish-snapshots
 on:
   push:
     branches:
-      - master
+      - master # (todo when ready, main)
   workflow_dispatch: {}
 
 env:
