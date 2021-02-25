@@ -5,6 +5,7 @@
 plugins {
     java
     `maven-publish`
+    id("nebula.release") version "15.2.0"
 }
 
 repositories {
