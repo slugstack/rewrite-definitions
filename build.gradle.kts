@@ -25,7 +25,7 @@ dependencies {
 }
 
 group = "io.slugstack.oss"
-version = "0.0.14-SNAPSHOT"
+// version = "0.0.14-SNAPSHOT"
 description = "rewrite-definitions"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
