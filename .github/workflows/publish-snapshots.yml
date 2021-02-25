@@ -1,0 +1,69 @@
+## marked up with extra comments to be used as a reference
+---
+name: publish-snapshots
+
+# on:
+#   push:
+#     branches:
+#       - master
+
+
+on:
+  push:
+    tags:
+      # accepts globs; this is currently a regex, but there's inspo (https://circleci.com/docs/2.0/workflows/#using-contexts-and-filtering-in-your-workflows)
+      # - /^v\d+\.\d+\.\d+(-rc\.\d+)?$/
+      # - v[0-9].[0-9].[0-9]
+      - v[0-9].[0-9].[0-9]-rc.[0-9]
+
+  workflow_dispatch: {}
+
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      ## https://github.com/actions/setup-java
+      ## in some of these "with" maps, we're explicitly stating default values (e.g. "settings-path");
+      ## although unnecessary, it's helpful as a reference.
+      - name: set-up-jdk
+        uses: actions/setup-java@v1
+        with:
+          java-version: "11"
+          server-id: ossrh # value of the distributionManagement/repository/id field of the pom.xml
+          settings-path: ${{ github.workspace }} # location to place the generated settings.xml file
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+      - name: setup-cache
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.gradle/caches # might as well cache the wrapper, too. but, eh, just showing.
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      ## configuring the git user is necessary since the maven-release-plugin performs a git commit and push back
+      ## to scm with the updated pom.xml and updated git tags.
+      - name: configure-git-user
+        ## # https://github.community/t/github-actions-bot-email-address/17204/6
+        run: |
+          git config user.email "github-action@users.noreply.github.com"
+          git config user.name "slugstack"
+
+      - name: release
+        timeout-minutes: 30
+        run: ./gradlew publish
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
