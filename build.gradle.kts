@@ -36,6 +36,7 @@ tasks.withType<JavaCompile>() {
 
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
+// why. WHY is there not an easy way to do 'closeAndPromoteRepository' without more freaking plugins? WHY?!
 ////////////////////////////////////////////////////////////////
 
 // TODO
@@ -46,6 +47,7 @@ java {
 
 publishing {
     repositories {
+        // todo just example
         // maven {
         //     name = "GitHubPackages"
         //     url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
