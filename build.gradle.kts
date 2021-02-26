@@ -9,6 +9,7 @@ plugins {
     id("nebula.maven-publish") version "17.3.2" // todo apparently this should encapsulate everything else?
 
     id("nebula.contacts") version "5.1.0" // ?? https://plugins.gradle.org/plugin/nebula.contacts
+    id("nebula.publish-verification") version "17.3.2" // https://plugins.gradle.org/plugin/nebula.publish-verification
 
     id("nebula.maven-base-publish") version "17.3.2" // TODO not so sure about this one?
     id("nebula.maven-resolved-dependencies") version "17.3.2" // TODO or this
@@ -40,9 +41,10 @@ group = "io.slugstack.oss"
 description = "rewrite-definitions"
 
 configure<nebula.plugin.contacts.ContactsExtension> {
-    val j = nebula.plugin.contacts.Contact("jkschneider@gmail.com")
-    j.moniker("Jonathan Schneider")
-    people["jkschneider@gmail.com"] = j
+    val c = nebula.plugin.contacts.Contact("aegershman@gmail.com")
+    c.moniker("Aaron Gershman")
+    c.github("aegershman")
+    people["aegershman@gmail.com"] = c
 }
 //configure<ContactsExtension> {
 //    val j = Contact("jkschneider@gmail.com")
