@@ -7,9 +7,11 @@ plugins {
     `maven-publish`
     signing // todo
     id("nebula.maven-publish") version "17.3.2" // todo apparently this should encapsulate everything else?
+    // id("nebula.publish-verification") version "17.3.2" // https://plugins.gradle.org/plugin/nebula.publish-verification
+
+    id("nebula.info") version "9.3.0" // https://plugins.gradle.org/plugin/nebula.info
 
     id("nebula.contacts") version "5.1.0" // ?? https://plugins.gradle.org/plugin/nebula.contacts
-    id("nebula.publish-verification") version "17.3.2" // https://plugins.gradle.org/plugin/nebula.publish-verification
 
     id("nebula.maven-base-publish") version "17.3.2" // TODO not so sure about this one?
     id("nebula.maven-resolved-dependencies") version "17.3.2" // TODO or this
@@ -20,9 +22,9 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.0.0" // https://github.com/gradle-nexus/publish-plugin
 }
 
-allprojects {
-    apply(plugin = "nebula.publish-verification")
-}
+// allprojects {
+//     apply(plugin = "nebula.publish-verification")
+// }
 
 repositories {
     mavenLocal()
