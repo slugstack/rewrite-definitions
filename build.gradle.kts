@@ -56,6 +56,7 @@ publishing {
     }
 }
 nexusPublishing {
+    // connectTimeout =
     repositories {
         create("mavenCentral") {
             nexusUrl.set(uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/"))
