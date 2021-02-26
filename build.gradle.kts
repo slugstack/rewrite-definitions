@@ -55,9 +55,18 @@ publishing {
         }
     }
 }
+// nexusPublishing {
+//     repositories {
+//         sonatype() // uses plenty of defaults
+//     }
+// }
 nexusPublishing {
     repositories {
-        sonatype() // uses plenty of defaults
+        sonatype {
+            // trying out alts for easier publishing testing
+            username.set(project.findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME"))
+            password.set(project.findProperty("ossrhToken") as String? ?: System.getenv("OSSRH_TOKEN"))
+        }
     }
 }
 // nexusPublishing {
@@ -112,6 +121,7 @@ nexusPublishing {
 
 
 signing {
-    // sign(publishing.publications["mavenJava"])
+    useGpgCmd() // todo local testing
+    sign(publishing.publications["mavenJava"]) // still todo
     // sign(publishing.publications["maven"]) // todo
 }
