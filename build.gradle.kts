@@ -6,6 +6,7 @@ plugins {
     java
     `maven-publish`
     signing // todo
+    id("nebula.maven-base-publish") version "17.3.2" // TODO not so sure about this one?
     id("nebula.maven-manifest") version "17.3.2" // https://github.com/nebula-plugins/nebula-publishing-plugin#nebulamaven-manifest
     id("io.github.gradle-nexus.publish-plugin") version "1.0.0" // https://github.com/gradle-nexus/publish-plugin
     id("nebula.release") version "15.2.0"
