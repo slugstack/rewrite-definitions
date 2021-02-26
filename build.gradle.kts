@@ -34,9 +34,10 @@ publishing {
         maven {
             // name = "GitHubPackages"
             // url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
-            releaseRepo = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-            snapshotRepo = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-            url = snapshotRepo
+            // releaseRepo = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            // snapshotRepo = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+            // url = snapshotRepo
+            url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
             credentials {
                 // username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
                 // password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
