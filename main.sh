@@ -15,6 +15,9 @@ testwork)
 
 random-assortment)
     exit 1
+    ./gradlew generatePomFileForMavenJavaPublication # https://docs.gradle.org/current/userguide/publishing_maven.html build/publications/$pubName/pom-default.xml.
+    ./gradlew publishToMavenLocal && cat ~/.m2/repository/io/slugstack/oss/rewrite-definitions/0.2.0-SNAPSHOT/rewrite-definitions-0.2.0-SNAPSHOT.pom
+
     ./gradlew snapshot publish -DossrhUsername="${OSSRH_USERNAME}" -DossrhToken="${OSSRH_TOKEN}"
     ./gradlew -Prelease.useLastTag=true snapshot publish
     ./gradlew -Prelease.useLastTag=true snapshot publishToMavenLocal

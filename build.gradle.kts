@@ -164,9 +164,13 @@ nexusPublishing {
 
 // }
 
-
+// todo, nebula signing? etc.
 signing {
-    useGpgCmd() // todo local testing
+    val signingKey = project.findProperty("signingKey") as String? ?: System.getenv("SIGNING_GPG_PRIVATE_KEY")
+    val signingPassword = project.findProperty("signingPassword") as String? ?: System.getenv("SIGNING_GPG_PASSPHRASE")
+    useInMemoryPgpKeys(signingKey, signingPassword)
+
+    // useGpgCmd() // todo local testing
     // sign(publishing.publications["mavenJava"]) // still todo
     sign(publishing.publications["nebula"]) // still todo...?
     // sign(publishing.publications["maven"]) // todo
