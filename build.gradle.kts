@@ -29,6 +29,20 @@ group = "io.slugstack.oss"
 description = "rewrite-definitions"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
+tasks.withType<JavaCompile>() {
+    options.encoding = "UTF-8"
+}
+
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+
+// TODO
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     repositories {
         // maven {
@@ -62,8 +76,4 @@ publishing {
     //     }
     // }
 
-}
-
-tasks.withType<JavaCompile>() {
-    options.encoding = "UTF-8"
 }
