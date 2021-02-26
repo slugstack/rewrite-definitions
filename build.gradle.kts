@@ -35,6 +35,13 @@ tasks.withType<JavaCompile>() {
     options.encoding = "UTF-8"
 }
 
+// without this, the default is to use "-dev.x.uncommited+sha" during build ./gradlew build etc., e.g.
+// Inferred project: rewrite-definitions, version: 0.1.0-dev.1.uncommitted+ae68a9d
+// but WITH this config, ./gradlew build defaults to: Inferred project: rewrite-definitions, version: 0.1.0-SNAPSHOT
+configure<nebula.plugin.release.git.base.ReleasePluginExtension> {
+    defaultVersionStrategy = nebula.plugin.release.NetflixOssStrategies.SNAPSHOT(project)
+}
+
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 // why. WHY is there not an easy way to do 'closeAndPromoteRepository' without more freaking plugins? WHY?!
