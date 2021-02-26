@@ -31,16 +31,31 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 publishing {
     repositories {
+        // maven {
+        //     name = "GitHubPackages"
+        //     url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+        //     credentials {
+        //         username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+        //         password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+        //     }
+        // }
+
+        // maven {
+        //     name = "OSSRH_SNAPSHOTS"
+        //     // releaseRepo = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+        //     // snapshotRepo = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+        //     // url = snapshotRepo
+        //     url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+        //     credentials {
+        //         username = project.findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME")
+        //         password = project.findProperty("ossrhPassword") as String? ?: System.getenv("OSSRH_PASSWORD")
+        //     }
+        // }
+
         maven {
-            // name = "GitHubPackages"
-            // url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
-            // releaseRepo = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-            // snapshotRepo = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-            // url = snapshotRepo
-            url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+            name = "OSSRH_RELEASE"
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                // username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-                // password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
                 username = project.findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME")
                 password = project.findProperty("ossrhPassword") as String? ?: System.getenv("OSSRH_PASSWORD")
             }
