@@ -30,9 +30,29 @@ description = "rewrite-definitions"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+            credentials {
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+                // username = project.findProperty("ossrhUsername") as? String
+                // password = project.findProperty("ossrhPassword") as? String
+            }
+        }
+    }
+
     publications.create<MavenPublication>("maven") {
         from(components["java"])
     }
+
+    // publications {
+    //     register("gpr") {
+    //         from(components["java"])
+    //     }
+    // }
+
 }
 
 tasks.withType<JavaCompile>() {
