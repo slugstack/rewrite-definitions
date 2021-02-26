@@ -40,21 +40,11 @@ publishing {
         //     }
         // }
 
-        // maven {
-        //     name = "OSSRH_SNAPSHOTS"
-        //     // releaseRepo = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-        //     // snapshotRepo = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-        //     // url = snapshotRepo
-        //     url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-        //     credentials {
-        //         username = project.findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME")
-        //         password = project.findProperty("ossrhPassword") as String? ?: System.getenv("OSSRH_PASSWORD")
-        //     }
-        // }
-
         maven {
-            name = "OSSRH_RELEASE"
-            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            name = "OSSRH"
+            val releaseRepo = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            val snapshotRepo = "https://oss.sonatype.org/content/repositories/snapshots/"
+            uri(if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl)
             credentials {
                 username = project.findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME")
                 password = project.findProperty("ossrhPassword") as String? ?: System.getenv("OSSRH_PASSWORD")
