@@ -5,6 +5,7 @@
 plugins {
     java
     `maven-publish`
+    signing // todo
     id("nebula.release") version "15.2.0"
 }
 
@@ -76,4 +77,9 @@ publishing {
     //     }
     // }
 
+}
+
+signing {
+    // sign(publishing.publications["mavenJava"])
+    sign(publishing.publications["maven"])
 }
