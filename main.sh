@@ -8,7 +8,9 @@ set -e
 
 case "$1" in
 testwork)
-    ./gradlew snapshot publish -DossrhUsername="${OSSRH_USERNAME}" -DossrhToken="${OSSRH_TOKEN}"
+    ./gradlew snapshot publish -DossrhUsername="${OSSRH_USERNAME}" -DossrhToken="${OSSRH_TOKEN}" -s --console=plain
+    ./gradlew snapshot generatePomFileForMavenJavaPublication -s --console=plain
+    ./gradlew -Prelease.disableGitChecks=true -Prelease.useLastTag=true final publishToSonatype closeSonatypeStagingRepository -s --console=plain
     ;;
 
 random-assortment)
