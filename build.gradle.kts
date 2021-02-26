@@ -44,7 +44,7 @@ dependencies {
 
 group = "io.slugstack.oss"
 // version = "0.0.14-SNAPSHOT"
-description = "rewrite-definitions"
+description = "rewrite-definitions examples"
 
 configure<nebula.plugin.contacts.ContactsExtension> {
     val c = nebula.plugin.contacts.Contact("aegershman@gmail.com")
