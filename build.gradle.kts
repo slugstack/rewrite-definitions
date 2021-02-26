@@ -41,8 +41,8 @@ publishing {
             credentials {
                 // username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
                 // password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
-                username = project.findProperty("ossrhUsername") as? String
-                password = project.findProperty("ossrhPassword") as? String
+                username = project.findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME")
+                password = project.findProperty("ossrhPassword") as String? ?: System.getenv("OSSRH_PASSWORD")
             }
         }
     }
