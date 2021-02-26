@@ -6,10 +6,15 @@ plugins {
     java
     `maven-publish`
     signing // todo
+    id("nebula.maven-publish") version "17.3.2" // todo apparently this should encapsulate everything else?
+
     id("nebula.maven-base-publish") version "17.3.2" // TODO not so sure about this one?
+    id("nebula.maven-resolved-dependencies") version "17.3.2" // TODO or this
+    id("nebula.release") version "15.3.1" // TODO or this
+    // id("nebula.release") version "15.2.0"
+
     id("nebula.maven-manifest") version "17.3.2" // https://github.com/nebula-plugins/nebula-publishing-plugin#nebulamaven-manifest
     id("io.github.gradle-nexus.publish-plugin") version "1.0.0" // https://github.com/gradle-nexus/publish-plugin
-    id("nebula.release") version "15.2.0"
 }
 
 repositories {
@@ -59,9 +64,11 @@ java {
 // todo trying out plugin
 publishing {
     publications {
-        create<MavenPublication>("mavenJava") {
+        // create<MavenPublication>("mavenJava") {
+        create<MavenPublication>("nebula") { // todo idk about this
             from(components["java"])
         }
+        // nebula(MavenPublication) {} // Create a maven publication named nebula. // https://github.com/nebula-plugins/nebula-publishing-plugin#nebulamaven-base-publish
     }
 }
 // nexusPublishing {
@@ -131,6 +138,7 @@ nexusPublishing {
 
 signing {
     useGpgCmd() // todo local testing
-    sign(publishing.publications["mavenJava"]) // still todo
+    // sign(publishing.publications["mavenJava"]) // still todo
+    sign(publishing.publications["nebula"]) // still todo...?
     // sign(publishing.publications["maven"]) // todo
 }
