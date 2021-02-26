@@ -8,6 +8,8 @@ plugins {
     signing // todo
     id("nebula.maven-publish") version "17.3.2" // todo apparently this should encapsulate everything else?
 
+    id("nebula.contacts") version "5.1.0" // ?? https://plugins.gradle.org/plugin/nebula.contacts
+
     id("nebula.maven-base-publish") version "17.3.2" // TODO not so sure about this one?
     id("nebula.maven-resolved-dependencies") version "17.3.2" // TODO or this
     id("nebula.release") version "15.3.1" // TODO or this
@@ -36,6 +38,19 @@ dependencies {
 group = "io.slugstack.oss"
 // version = "0.0.14-SNAPSHOT"
 description = "rewrite-definitions"
+
+configure<nebula.plugin.contacts.ContactsExtension> {
+    val j = nebula.plugin.contacts.Contact("jkschneider@gmail.com")
+    j.moniker("Jonathan Schneider")
+    people["jkschneider@gmail.com"] = j
+}
+//configure<ContactsExtension> {
+//    val j = Contact("jkschneider@gmail.com")
+//    j.moniker("Jonathan Schneider")
+//
+//    people["jkschneider@gmail.com"] = j
+//}
+
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 tasks.withType<JavaCompile>() {
