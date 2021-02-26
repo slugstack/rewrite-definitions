@@ -9,6 +9,7 @@ on:
 
 env:
   GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+  GRADLE_SWITCHES: "-s --console=plain --info --stacktrace"
 
 jobs:
   release:
@@ -17,12 +18,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
       - name: set-up-jdk
         uses: actions/setup-java@v1
         with:
           java-version: "11"
-
       - name: setup-cache
         uses: actions/cache@v2.1.4
         with:
@@ -36,7 +35,8 @@ jobs:
       - name: publish-candidate
         if: contains(github.ref, '-rc.')
         timeout-minutes: 30
-        run: ./gradlew snapshot publish -s --console=plain
+        run: ./gradlew ${GRADLE_SWITCHES} -Prelease.disableGitChecks=true -Prelease.useLastTag=true candidate publishToSonatype closeSonatypeStagingRepository
+        # run: ./gradlew -s --console=plain -Prelease.disableGitChecks=true -Prelease.useLastTag=true candidate publishToSonatype closeAndReleaseSonatypeStagingRepository
         env:
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
@@ -46,7 +46,8 @@ jobs:
       - name: publish-release
         if: (!contains(github.ref, '-rc.'))
         timeout-minutes: 30
-        run: ./gradlew snapshot publish -s --console=plain
+        run: ./gradlew ${GRADLE_SWITCHES} -Prelease.disableGitChecks=true -Prelease.useLastTag=true final publishToSonatype closeSonatypeStagingRepository
+        # run: ./gradlew -s --console=plain -Prelease.disableGitChecks=true -Prelease.useLastTag=true final publishToSonatype closeAndReleaseSonatypeStagingRepository
         env:
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
