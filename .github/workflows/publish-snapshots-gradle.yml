@@ -15,7 +15,8 @@ name: publish-snapshots
 on:
   push:
     branches:
-      - master # (todo when ready, main)
+      # - master # (todo when ready, main)
+      - main
     tags-ignore:
       - "*"
   workflow_dispatch: {}
