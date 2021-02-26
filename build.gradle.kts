@@ -56,16 +56,21 @@ publishing {
     }
 }
 nexusPublishing {
-    // connectTimeout =
     repositories {
-        create("mavenCentral") {
-            nexusUrl.set(uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/"))
-            snapshotRepositoryUrl.set(uri("https://oss.sonatype.org/content/repositories/snapshots/"))
-            username.set("ossrhUsername") // defaults to project.properties["myNexusUsername"]
-            password.set("ossrhPassword") // defaults to project.properties["myNexusPassword"]
-        }
+        sonatype() // uses plenty of defaults
     }
 }
+// nexusPublishing {
+//     // connectTimeout =
+//     repositories {
+//         create("mavenCentral") {
+//             nexusUrl.set(uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/"))
+//             snapshotRepositoryUrl.set(uri("https://oss.sonatype.org/content/repositories/snapshots/"))
+//             username.set("ossrhUsername") // defaults to project.properties["myNexusUsername"]
+//             password.set("ossrhPassword") // defaults to project.properties["myNexusPassword"]
+//         }
+//     }
+// }
 
 // publishing {
 //     repositories {
