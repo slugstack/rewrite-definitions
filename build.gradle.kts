@@ -10,8 +10,8 @@ plugins {
     // id("nebula.publish-verification") version "17.3.2" // https://plugins.gradle.org/plugin/nebula.publish-verification
 
     id("nebula.info") version "9.3.0" // https://plugins.gradle.org/plugin/nebula.info
-
     id("nebula.contacts") version "5.1.0" // ?? https://plugins.gradle.org/plugin/nebula.contacts
+    id("nebula.maven-apache-license") version "17.3.2" // undocumented, but helpful for putting the license in the generated pom.xml https://plugins.gradle.org/plugin/nebula.maven-apache-license
 
     id("nebula.maven-base-publish") version "17.3.2" // TODO not so sure about this one?
     id("nebula.maven-resolved-dependencies") version "17.3.2" // TODO or this
@@ -61,7 +61,7 @@ configure<nebula.plugin.contacts.ContactsExtension> {
 
 java.sourceCompatibility = JavaVersion.VERSION_11
 
-tasks.withType<JavaCompile>() {
+tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 
@@ -163,8 +163,6 @@ nexusPublishing {
 //     // }
 
 // }
-
-
 
 
 signing {
