@@ -20,6 +20,10 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.0.0" // https://github.com/gradle-nexus/publish-plugin
 }
 
+allprojects {
+    apply(plugin = "nebula.publish-verification")
+}
+
 repositories {
     mavenLocal()
     maven {
