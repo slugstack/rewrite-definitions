@@ -60,17 +60,25 @@ java {
     withSourcesJar()
 }
 
-
-// todo trying out plugin
-publishing {
-    publications {
-        // create<MavenPublication>("mavenJava") {
-        create<MavenPublication>("nebula") { // todo idk about this
-            from(components["java"])
-        }
-        // nebula(MavenPublication) {} // Create a maven publication named nebula. // https://github.com/nebula-plugins/nebula-publishing-plugin#nebulamaven-base-publish
-    }
-}
+// // todo trying out plugin
+// publishing {
+//     publications {
+//         create<MavenPublication>("mavenJava") {
+//         // create<MavenPublication>("nebula") { // todo idk about this
+//             from(components["java"])
+//         }
+//         // nebula(MavenPublication) {} // Create a maven publication named nebula. // https://github.com/nebula-plugins/nebula-publishing-plugin#nebulamaven-base-publish
+//     }
+// }
+// todo again, trying out what happens when we use "nebula" for default. Maven publication named "nebula" happens by default.
+// publishing {
+//     publications {
+//         create<MavenPublication>("mavenJava") {
+//             from(components["java"])
+//         }
+//         // nebula(MavenPublication) {} // Create a maven publication named nebula. // https://github.com/nebula-plugins/nebula-publishing-plugin#nebulamaven-base-publish
+//     }
+// }
 // nexusPublishing {
 //     repositories {
 //         sonatype() // uses plenty of defaults
