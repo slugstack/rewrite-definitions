@@ -35,8 +35,8 @@ jobs:
       - name: publish-candidate
         if: contains(github.ref, '-rc.')
         timeout-minutes: 30
-        run: ./gradlew ${GRADLE_SWITCHES} -Prelease.disableGitChecks=true -Prelease.useLastTag=true candidate publishToSonatype closeSonatypeStagingRepository
-        # run: ./gradlew -s --console=plain -Prelease.disableGitChecks=true -Prelease.useLastTag=true candidate publishToSonatype closeAndReleaseSonatypeStagingRepository
+        # run: ./gradlew ${GRADLE_SWITCHES} -Prelease.disableGitChecks=true -Prelease.useLastTag=true candidate publishToSonatype closeSonatypeStagingRepository
+        run: ./gradlew ${GRADLE_SWITCHES} -Prelease.disableGitChecks=true -Prelease.useLastTag=true candidate publishToSonatype closeAndReleaseSonatypeStagingRepository
         env:
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
@@ -46,8 +46,8 @@ jobs:
       - name: publish-release
         if: (!contains(github.ref, '-rc.'))
         timeout-minutes: 30
-        run: ./gradlew ${GRADLE_SWITCHES} -Prelease.disableGitChecks=true -Prelease.useLastTag=true final publishToSonatype closeSonatypeStagingRepository
-        # run: ./gradlew -s --console=plain -Prelease.disableGitChecks=true -Prelease.useLastTag=true final publishToSonatype closeAndReleaseSonatypeStagingRepository
+        # run: ./gradlew ${GRADLE_SWITCHES} -Prelease.disableGitChecks=true -Prelease.useLastTag=true final publishToSonatype closeSonatypeStagingRepository
+        run: ./gradlew ${GRADLE_SWITCHES} -Prelease.disableGitChecks=true -Prelease.useLastTag=true final publishToSonatype closeAndReleaseSonatypeStagingRepository
         env:
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
