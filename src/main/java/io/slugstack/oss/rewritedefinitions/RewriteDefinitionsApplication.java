@@ -6,3 +6,6 @@ public class RewriteDefinitionsApplication {
 		//
 	}
 }
+
+class Placeholder {
+}
