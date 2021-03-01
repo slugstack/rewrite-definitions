@@ -13,12 +13,12 @@ plugins {
     id("nebula.contacts") version "5.1.0" // ?? https://plugins.gradle.org/plugin/nebula.contacts
     id("nebula.maven-apache-license") version "17.3.2" // undocumented, but helpful for putting the license in the generated pom.xml https://plugins.gradle.org/plugin/nebula.maven-apache-license
 
-    id("nebula.maven-base-publish") version "17.3.2" // TODO not so sure about this one?
-    id("nebula.maven-resolved-dependencies") version "17.3.2" // TODO or this
+    // id("nebula.maven-base-publish") version "17.3.2" // TODO not so sure about this one?
+    // id("nebula.maven-resolved-dependencies") version "17.3.2" // TODO or this
     id("nebula.release") version "15.3.1" // TODO or this
     // id("nebula.release") version "15.2.0"
 
-    id("nebula.maven-manifest") version "17.3.2" // https://github.com/nebula-plugins/nebula-publishing-plugin#nebulamaven-manifest
+    // id("nebula.maven-manifest") version "17.3.2" // https://github.com/nebula-plugins/nebula-publishing-plugin#nebulamaven-manifest
     id("io.github.gradle-nexus.publish-plugin") version "1.0.0" // https://github.com/gradle-nexus/publish-plugin
 }
 
