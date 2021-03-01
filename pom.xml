@@ -3,13 +3,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.slugstack.oss</groupId>
-	<artifactId>rewrite-definitions</artifactId>
+	<artifactId>slugstack-publishing-test</artifactId>
 	<version>0.0.14-SNAPSHOT</version>
-	<name>rewrite-definitions</name>
+	<name>slugstack-publishing-test</name>
 
 	<description>an example of publishing a java project using github actions</description>
 
-	<url>https://github.com/slugstack/rewrite-definitions</url>
+	<url>https://github.com/slugstack/slugstack-publishing-test</url>
 
 	<licenses>
 		<license>
@@ -32,14 +32,14 @@
 	</organization>
 
 	<scm>
-		<connection>scm:git:https://github.com:slugstack/rewrite-definitions.git</connection>
+		<connection>scm:git:https://github.com:slugstack/slugstack-publishing-test.git</connection>
 		<developerConnection>${developerConnectionUrl}</developerConnection>
-		<url>https://github.com/slugstack/rewrite-definitions</url>
+		<url>https://github.com/slugstack/slugstack-publishing-test</url>
 		<tag>HEAD</tag>
 	</scm>
 
 	<properties>
-		<developerConnectionUrl>scm:git:ssh://git@github.com/slugstack/rewrite-definitions.git</developerConnectionUrl>
+		<developerConnectionUrl>scm:git:ssh://git@github.com/slugstack/slugstack-publishing-test.git</developerConnectionUrl>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
 	</properties>
@@ -187,7 +187,7 @@
 			<id>release-automation</id>
 			<properties>
 				<!-- automation via the maven-release-plugin uses a GITHUB_TOKEN which requires 'https' urls for git pushing -->
-				<developerConnectionUrl>scm:git:https://github.com/slugstack/rewrite-definitions.git</developerConnectionUrl>
+				<developerConnectionUrl>scm:git:https://github.com/slugstack/slugstack-publishing-test.git</developerConnectionUrl>
 			</properties>
 		</profile>
 	</profiles>

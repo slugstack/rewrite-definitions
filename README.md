@@ -1,4 +1,4 @@
-# rewrite-definitions
+# slugstack-publishing-test
 
 project entirely for testing things like `ci`, `github-actions`, etc.-- and sometimes weird things, like using both `gradle` and `mvn`.
 
