@@ -70,8 +70,8 @@ nexusPublishing {
 }
 
 signing {
-    val signingKey = project.findProperty("signingKey") as String? ?: System.getenv("SIGNING_GPG_PRIVATE_KEY")
-    val signingPassword = project.findProperty("signingPassword") as String? ?: System.getenv("SIGNING_GPG_PASSPHRASE")
+    val signingKey = project.findProperty("signingKey") as String? ?: System.getenv("SIGNING_KEY")
+    val signingPassword = project.findProperty("signingPassword") as String? ?: System.getenv("SIGNING_PASSWORD")
     useInMemoryPgpKeys(signingKey, signingPassword)
     // useGpgCmd() // todo for local testing
     sign(publishing.publications["nebula"])
