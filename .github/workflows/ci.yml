@@ -1,5 +1,5 @@
 ---
-name: publish-snapshots
+name: ci
 
 on:
   push:
@@ -7,6 +7,9 @@ on:
       - main
     tags-ignore:
       - "*"
+  pull_request:
+    branches:
+      - main
   workflow_dispatch: {}
 
 env:
@@ -14,7 +17,7 @@ env:
   GRADLE_SWITCHES: "-s --console=plain --info --stacktrace"
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -34,7 +37,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: build
+        run: ./gradlew ${GRADLE_SWITCHES} build test
+
       - name: publish-snapshots
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         timeout-minutes: 30
         run: ./gradlew ${GRADLE_SWITCHES} snapshot publish
         env:

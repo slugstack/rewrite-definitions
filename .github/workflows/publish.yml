@@ -1,5 +1,5 @@
 ---
-name: publish-release
+name: publish
 
 on:
   push:
@@ -31,6 +31,9 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+      - name: build
+        run: ./gradlew ${GRADLE_SWITCHES} build test
 
       - name: publish-candidate
         if: contains(github.ref, '-rc.')
