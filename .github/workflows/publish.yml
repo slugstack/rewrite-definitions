@@ -39,7 +39,7 @@ jobs:
         if: contains(github.ref, '-rc.')
         timeout-minutes: 30
         # run: ./gradlew ${GRADLE_SWITCHES} -Prelease.disableGitChecks=true -Prelease.useLastTag=true candidate publishToSonatype closeSonatypeStagingRepository
-        run: ./gradlew ${GRADLE_SWITCHES} -Prelease.disableGitChecks=true -Prelease.useLastTag=true candidate publishToSonatype closeAndReleaseSonatypeStagingRepository
+        run: ./gradlew ${GRADLE_SWITCHES} -Prelease.disableGitChecks=true -Prelease.useLastTag=true candidate publish closeAndReleaseSonatypeStagingRepository
         env:
           OSSRH_TOKEN: ${{ secrets.OSSRH_TOKEN }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
