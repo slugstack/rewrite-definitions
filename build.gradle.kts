@@ -70,6 +70,10 @@ nexusPublishing {
 }
 
 signing {
+    setRequired({
+        // skip signing snapshots by default, unless you explicitly opt-in with -PforceSigning
+        !project.version.toString().endsWith("SNAPSHOT") || project.hasProperty("forceSigning")
+    })
     val signingKey = project.findProperty("signingKey") as String? ?: System.getenv("SIGNING_KEY")
     val signingPassword = project.findProperty("signingPassword") as String? ?: System.getenv("SIGNING_PASSWORD")
     useInMemoryPgpKeys(signingKey, signingPassword)
