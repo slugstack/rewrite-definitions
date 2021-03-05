@@ -218,54 +218,54 @@ configure<PublishingExtension> {
     }
 }
 
+// // believe this is the issue
+// tasks.withType<GenerateMavenPom> {
+//     doLast {
+//         // because pom.withXml adds blank lines
+//         destination.writeText(
+//             destination.readLines().filter { it.isNotBlank() }.joinToString("\n")
+//         )
+//     }
 
-tasks.withType<GenerateMavenPom> {
-    doLast {
-        // because pom.withXml adds blank lines
-        destination.writeText(
-            destination.readLines().filter { it.isNotBlank() }.joinToString("\n")
-        )
-    }
+//     doFirst {
+//         val runtimeClasspath = configurations.getByName("runtimeClasspath")
 
-    doFirst {
-        val runtimeClasspath = configurations.getByName("runtimeClasspath")
+//         val gav = { dep: ResolvedDependency ->
+//             "${dep.moduleGroup}:${dep.moduleName}:${dep.moduleVersion}"
+//         }
 
-        val gav = { dep: ResolvedDependency ->
-            "${dep.moduleGroup}:${dep.moduleName}:${dep.moduleVersion}"
-        }
+//         val observedDependencies = TreeSet<ResolvedDependency> { d1, d2 ->
+//             gav(d1).compareTo(gav(d2))
+//         }
 
-        val observedDependencies = TreeSet<ResolvedDependency> { d1, d2 ->
-            gav(d1).compareTo(gav(d2))
-        }
+//         fun reduceDependenciesAtIndent(indent: Int):
+//                     (List<String>, ResolvedDependency) -> List<String> =
+//             { dependenciesAsList: List<String>, dep: ResolvedDependency ->
+//                 dependenciesAsList + listOf(" ".repeat(indent) + dep.module.id.toString()) + (
+//                         if (observedDependencies.add(dep)) {
+//                             dep.children
+//                                 .sortedBy(gav)
+//                                 .fold(emptyList(), reduceDependenciesAtIndent(indent + 2))
+//                         } else {
+//                             // this dependency subtree has already been printed, so skip it
+//                             emptyList()
+//                         }
+//                         )
+//             }
 
-        fun reduceDependenciesAtIndent(indent: Int):
-                    (List<String>, ResolvedDependency) -> List<String> =
-            { dependenciesAsList: List<String>, dep: ResolvedDependency ->
-                dependenciesAsList + listOf(" ".repeat(indent) + dep.module.id.toString()) + (
-                        if (observedDependencies.add(dep)) {
-                            dep.children
-                                .sortedBy(gav)
-                                .fold(emptyList(), reduceDependenciesAtIndent(indent + 2))
-                        } else {
-                            // this dependency subtree has already been printed, so skip it
-                            emptyList()
-                        }
-                        )
-            }
-
-        project.plugins.withType<InfoBrokerPlugin> {
-            add(
-                "Resolved-Dependencies", runtimeClasspath
-                    .resolvedConfiguration
-                    .lenientConfiguration
-                    .firstLevelModuleDependencies
-                    .sortedBy(gav)
-                    .fold(emptyList(), reduceDependenciesAtIndent(6))
-                    .joinToString("\n", "\n", "\n" + " ".repeat(4))
-            )
-        }
-    }
-}
+//         project.plugins.withType<InfoBrokerPlugin> {
+//             add(
+//                 "Resolved-Dependencies", runtimeClasspath
+//                     .resolvedConfiguration
+//                     .lenientConfiguration
+//                     .firstLevelModuleDependencies
+//                     .sortedBy(gav)
+//                     .fold(emptyList(), reduceDependenciesAtIndent(6))
+//                     .joinToString("\n", "\n", "\n" + " ".repeat(4))
+//             )
+//         }
+//     }
+// }
 
 configure<nebula.plugin.release.git.base.ReleasePluginExtension> {
     // without this, the default is to use "-dev.x.uncommited+sha" during build ./gradlew build etc., e.g.
