@@ -29,7 +29,7 @@ plugins {
     signing
 
     // id("io.slugstack.publishing-plugin") version "0.0.2" // releases
-    id("io.slugstack.publishing-plugin") version "0.1.0-SNAPSHOT" // snapshots from maven central
+    id("io.slugstack.publishing-plugin") version "0.1.0-SNAPSHOT" // snapshots from maven central; ./gradlew build --refresh-dependencies
 
     id("nebula.maven-resolved-dependencies") version "17.3.2"
     id("nebula.release") version "15.3.1"
@@ -277,9 +277,10 @@ configure<PublishingExtension> {
 //     }
 // }
 
-configure<nebula.plugin.release.git.base.ReleasePluginExtension> {
-    // without this, the default is to use "-dev.x.uncommited+sha" during build ./gradlew build etc., e.g.
-    // Inferred project: slugstack-publishing-test, version: 0.1.0-dev.1.uncommitted+ae68a9d
-    // but WITH this config, ./gradlew build defaults to: Inferred project: slugstack-publishing-test, version: 0.1.0-SNAPSHOT
-    defaultVersionStrategy = nebula.plugin.release.NetflixOssStrategies.SNAPSHOT(project)
-}
+// // TODO not necessary if we're using the upstream plugin, hooray
+// configure<nebula.plugin.release.git.base.ReleasePluginExtension> {
+//     // without this, the default is to use "-dev.x.uncommited+sha" during build ./gradlew build etc., e.g.
+//     // Inferred project: slugstack-publishing-test, version: 0.1.0-dev.1.uncommitted+ae68a9d
+//     // but WITH this config, ./gradlew build defaults to: Inferred project: slugstack-publishing-test, version: 0.1.0-SNAPSHOT
+//     defaultVersionStrategy = nebula.plugin.release.NetflixOssStrategies.SNAPSHOT(project)
+// }
