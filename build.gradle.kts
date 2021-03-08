@@ -14,8 +14,12 @@ import java.util.*
 
 buildscript {
     repositories {
-        mavenCentral()
         gradlePluginPortal()
+        mavenCentral()
+        maven {
+            url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+        }
+        // mavenLocal()
     }
 }
 
@@ -24,10 +28,8 @@ plugins {
     `maven-publish`
     signing
 
-    id("io.slugstack.publishing-plugin") version "0.0.2"
-    // id("io.slugstack.publishing-plugin") version "0.0.2"
-    // id("io.slugstack.oss.io.slugstack.publishing-plugin") version "0.0.2"
-    // id("io.slugstack.oss:slugstack-publishing-plugin") version "0.0.2"
+    // id("io.slugstack.publishing-plugin") version "0.0.2" // releases
+    id("io.slugstack.publishing-plugin") version "0.1.0-SNAPSHOT" // snapshots from maven central
 
     id("nebula.maven-resolved-dependencies") version "17.3.2"
     id("nebula.release") version "15.3.1"
@@ -51,8 +53,11 @@ description = "slugstack-publishing-test examples"
 
 
 repositories {
-    mavenLocal()
     mavenCentral()
+    maven {
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
+    mavenLocal()
 }
 
 
