@@ -30,6 +30,7 @@ plugins {
 
     // id("io.slugstack.publishing-plugin") version "0.0.2" // releases
     id("io.slugstack.publishing-plugin") version "0.1.0-SNAPSHOT" // snapshots from maven central; ./gradlew build --refresh-dependencies
+    // id("org.openrewrite.publishing-plugin") version "0.1.0-SNAPSHOT"
 
     id("nebula.maven-resolved-dependencies") version "17.3.2"
     id("nebula.release") version "15.3.1"
