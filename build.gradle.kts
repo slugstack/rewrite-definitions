@@ -12,9 +12,9 @@ import java.util.*
 //// }
 //
 
-
 buildscript {
     repositories {
+        mavenCentral()
         gradlePluginPortal()
     }
 }
@@ -23,6 +23,11 @@ plugins {
     `java-library` // java // testing
     `maven-publish`
     signing
+
+    id("io.slugstack.publishing-plugin") version "0.0.2"
+    // id("io.slugstack.publishing-plugin") version "0.0.2"
+    // id("io.slugstack.oss.io.slugstack.publishing-plugin") version "0.0.2"
+    // id("io.slugstack.oss:slugstack-publishing-plugin") version "0.0.2"
 
     id("nebula.maven-resolved-dependencies") version "17.3.2"
     id("nebula.release") version "15.3.1"
