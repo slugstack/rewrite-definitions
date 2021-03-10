@@ -17,7 +17,7 @@ pluginManagement {
                 useModule("io.slugstack.oss:slugstack-publishing-plugin:${requested.version}")
             }
             if (requested.id.namespace == "org.openrewrite") {
-                useModule("org.openrewrite:openrewrite-publishing-plugin:${requested.version}")
+                useModule("org.openrewrite:gradle-openrewrite-project-plugin:${requested.version}")
             }
         }
     }

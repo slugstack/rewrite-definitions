@@ -1,7 +1,7 @@
 import com.github.jk1.license.LicenseReportExtension
 import nebula.plugin.contacts.Contact
 import nebula.plugin.contacts.ContactsExtension
-import nebula.plugin.info.InfoBrokerPlugin
+// import nebula.plugin.info.InfoBrokerPlugin
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.*
 
@@ -19,21 +19,29 @@ buildscript {
         maven {
             url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
         }
-        // mavenLocal()
+        mavenLocal()
+    }
+
+    dependencies {
+        classpath("org.openrewrite:gradle-openrewrite-project-plugin:latest.integration")
     }
 }
+
+// apply(plugin = "org.openrewrite.project-defaults") // doesn't appear to work when mixed with plugins dsl block
 
 plugins {
     `java-library` // java // testing
     `maven-publish`
     signing
 
+    id("org.openrewrite.project-defaults") version "0.1.0-SNAPSHOT" // from local
+
     // id("io.slugstack.publishing-plugin") version "0.0.2" // releases
-    id("io.slugstack.publishing-plugin") version "0.1.0-SNAPSHOT" // snapshots from maven central; ./gradlew build --refresh-dependencies
+    // id("io.slugstack.publishing-plugin") version "0.1.0-SNAPSHOT" // snapshots from maven central; ./gradlew build --refresh-dependencies
     // id("org.openrewrite.publishing-plugin") version "0.1.0-SNAPSHOT"
 
     id("nebula.maven-resolved-dependencies") version "17.3.2"
-    id("nebula.release") version "15.3.1"
+    // id("nebula.release") version "15.3.1"
     id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
 
     id("com.github.hierynomus.license") version "0.15.0" apply false
@@ -89,12 +97,12 @@ configurations.all {
         cacheDynamicVersionsFor(0, TimeUnit.SECONDS)
     }
 
-    // We use kotlin exclusively for tests
-    // The kotlin plugin adds kotlin-stdlib dependencies to the main sourceSet, even if it doesn't use any kotlin
-    // To avoid shipping dependencies we don't actually need, exclude them from the main sourceSet classpath but add them _back_ in for the test source sets
-    if (name == "compileClasspath" || name == "runtimeClasspath") {
-        exclude(group = "org.jetbrains.kotlin")
-    }
+    // // We use kotlin exclusively for tests
+    // // The kotlin plugin adds kotlin-stdlib dependencies to the main sourceSet, even if it doesn't use any kotlin
+    // // To avoid shipping dependencies we don't actually need, exclude them from the main sourceSet classpath but add them _back_ in for the test source sets
+    // if (name == "compileClasspath" || name == "runtimeClasspath") {
+    //     exclude(group = "org.jetbrains.kotlin")
+    // }
 }
 
 dependencies {
@@ -102,50 +110,48 @@ dependencies {
     // testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
 
 
-    // ENTIRELY FOR TESTING AN ISSUE::
+    // // ENTIRELY FOR TESTING AN ISSUE::
     compileOnly("org.projectlombok:lombok:latest.release")
     annotationProcessor("org.projectlombok:lombok:latest.release")
 
-    implementation("org.openrewrite:rewrite-java:latest.integration")
-    implementation("org.openrewrite:rewrite-xml:latest.integration")
-    implementation("org.openrewrite:rewrite-properties:latest.integration")
-    implementation("org.openrewrite:rewrite-yaml:latest.integration")
-    implementation("org.openrewrite:rewrite-maven:latest.integration")
+    // implementation("org.openrewrite:rewrite-java:latest.integration")
+    // implementation("org.openrewrite:rewrite-xml:latest.integration")
+    // implementation("org.openrewrite:rewrite-properties:latest.integration")
+    // implementation("org.openrewrite:rewrite-yaml:latest.integration")
+    // implementation("org.openrewrite:rewrite-maven:latest.integration")
 
     // for locating list of released Spring Boot versions
     implementation("com.squareup.okhttp3:okhttp:latest.release")
 
-    runtimeOnly("org.openrewrite.recipe:rewrite-testing-frameworks:latest.integration")
+    // runtimeOnly("org.openrewrite.recipe:rewrite-testing-frameworks:latest.integration")
 
-    testImplementation("org.jetbrains.kotlin:kotlin-reflect")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    // testImplementation("org.jetbrains.kotlin:kotlin-reflect")
+    // testImplementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:latest.release")
     testImplementation("org.junit.jupiter:junit-jupiter-params:latest.release")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:latest.release")
 
-    testImplementation("org.openrewrite:rewrite-test:latest.integration")
+    // testImplementation("org.openrewrite:rewrite-test:latest.integration")
 
-    testImplementation("org.assertj:assertj-core:latest.release")
-    testImplementation("com.github.marschall:memoryfilesystem:latest.release")
+    // testImplementation("org.assertj:assertj-core:latest.release")
+    // testImplementation("com.github.marschall:memoryfilesystem:latest.release")
 
-    // for generating properties migration configurations
-    testImplementation("com.fasterxml.jackson.core:jackson-databind:latest.release")
-    testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin:latest.release")
-    testImplementation("io.github.classgraph:classgraph:latest.release")
+    // // for generating properties migration configurations
+    // testImplementation("com.fasterxml.jackson.core:jackson-databind:latest.release")
+    // testImplementation("com.fasterxml.jackson.module:jackson-module-kotlin:latest.release")
+    // testImplementation("io.github.classgraph:classgraph:latest.release")
 
-    testRuntimeOnly("org.openrewrite:rewrite-java-11:latest.integration")
-    testRuntimeOnly("org.openrewrite:rewrite-java-8:latest.integration")
+    // testRuntimeOnly("org.openrewrite:rewrite-java-11:latest.integration")
+    // testRuntimeOnly("org.openrewrite:rewrite-java-8:latest.integration")
 
-    testRuntimeOnly("junit:junit:latest.release")
-    testRuntimeOnly("org.springframework:spring-test:4.+")
-    testRuntimeOnly("org.springframework:spring-beans:4.+")
-    testRuntimeOnly("org.springframework:spring-webmvc:4.+")
-    testRuntimeOnly("org.springframework.boot:spring-boot-autoconfigure:1.5.+")
-    // END TESTING BLOCK
+    // testRuntimeOnly("junit:junit:latest.release")
+    // testRuntimeOnly("org.springframework:spring-test:4.+")
+    // testRuntimeOnly("org.springframework:spring-beans:4.+")
+    // testRuntimeOnly("org.springframework:spring-webmvc:4.+")
+    // testRuntimeOnly("org.springframework.boot:spring-boot-autoconfigure:1.5.+")
+    // // END TESTING BLOCK
 }
-
-
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
@@ -166,15 +172,15 @@ tasks.named<JavaCompile>("compileJava") {
     options.compilerArgs.add("-parameters")
 }
 
-tasks.withType(KotlinCompile::class.java).configureEach {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+// tasks.withType(KotlinCompile::class.java).configureEach {
+//     kotlinOptions {
+//         jvmTarget = "1.8"
+//     }
 
-    doFirst {
-        destinationDir.mkdirs()
-    }
-}
+//     doFirst {
+//         destinationDir.mkdirs()
+//     }
+// }
 
 configure<ContactsExtension> {
     val c = Contact("aegershman@gmail.com")
@@ -228,55 +234,6 @@ configure<PublishingExtension> {
         }
     }
 }
-
-// // believe this is the issue
-// tasks.withType<GenerateMavenPom> {
-//     doLast {
-//         // because pom.withXml adds blank lines
-//         destination.writeText(
-//             destination.readLines().filter { it.isNotBlank() }.joinToString("\n")
-//         )
-//     }
-
-//     doFirst {
-//         val runtimeClasspath = configurations.getByName("runtimeClasspath")
-
-//         val gav = { dep: ResolvedDependency ->
-//             "${dep.moduleGroup}:${dep.moduleName}:${dep.moduleVersion}"
-//         }
-
-//         val observedDependencies = TreeSet<ResolvedDependency> { d1, d2 ->
-//             gav(d1).compareTo(gav(d2))
-//         }
-
-//         fun reduceDependenciesAtIndent(indent: Int):
-//                     (List<String>, ResolvedDependency) -> List<String> =
-//             { dependenciesAsList: List<String>, dep: ResolvedDependency ->
-//                 dependenciesAsList + listOf(" ".repeat(indent) + dep.module.id.toString()) + (
-//                         if (observedDependencies.add(dep)) {
-//                             dep.children
-//                                 .sortedBy(gav)
-//                                 .fold(emptyList(), reduceDependenciesAtIndent(indent + 2))
-//                         } else {
-//                             // this dependency subtree has already been printed, so skip it
-//                             emptyList()
-//                         }
-//                         )
-//             }
-
-//         project.plugins.withType<InfoBrokerPlugin> {
-//             add(
-//                 "Resolved-Dependencies", runtimeClasspath
-//                     .resolvedConfiguration
-//                     .lenientConfiguration
-//                     .firstLevelModuleDependencies
-//                     .sortedBy(gav)
-//                     .fold(emptyList(), reduceDependenciesAtIndent(6))
-//                     .joinToString("\n", "\n", "\n" + " ".repeat(4))
-//             )
-//         }
-//     }
-// }
 
 // // TODO not necessary if we're using the upstream plugin, hooray
 // configure<nebula.plugin.release.git.base.ReleasePluginExtension> {
