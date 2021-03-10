@@ -1,9 +1,8 @@
 ---
-# https://github.com/marketplace/actions/close-stale-issues
 name: stale
 on:
   schedule:
-    - cron: "0 0 * * *" # end of every day, "at 00:00"
+    - cron: "0 0 * * *"
   workflow_dispatch: {}
 
 jobs:
