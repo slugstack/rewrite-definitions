@@ -22,9 +22,9 @@ buildscript {
         mavenLocal()
     }
 
-    dependencies {
-        classpath("org.openrewrite:gradle-openrewrite-project-plugin:latest.integration")
-    }
+    // dependencies {
+    //     classpath("org.openrewrite:gradle-openrewrite-project-plugin:latest.integration")
+    // }
 }
 
 // apply(plugin = "org.openrewrite.project-defaults") // doesn't appear to work when mixed with plugins dsl block
@@ -34,14 +34,14 @@ plugins {
     `maven-publish`
     signing
 
-    id("org.openrewrite.project-defaults") version "0.1.0-SNAPSHOT" // from local
+    // id("org.openrewrite.project-defaults") version "0.1.0-SNAPSHOT" // from local
 
     // id("io.slugstack.publishing-plugin") version "0.0.2" // releases
-    // id("io.slugstack.publishing-plugin") version "0.1.0-SNAPSHOT" // snapshots from maven central; ./gradlew build --refresh-dependencies
+    id("io.slugstack.publishing-plugin") version "0.1.0-SNAPSHOT" // snapshots from maven central; ./gradlew build --refresh-dependencies
     // id("org.openrewrite.publishing-plugin") version "0.1.0-SNAPSHOT"
 
     id("nebula.maven-resolved-dependencies") version "17.3.2"
-    // id("nebula.release") version "15.3.1"
+    id("nebula.release") version "15.3.1" apply false // false for the moment since we're testing moving content to publishing-plugin
     id("io.github.gradle-nexus.publish-plugin") version "1.0.0"
 
     id("com.github.hierynomus.license") version "0.15.0" apply false
