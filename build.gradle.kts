@@ -23,6 +23,7 @@ plugins {
     `java-library`
     `maven-publish`
     signing
+    id("org.openrewrite.rewrite") version "3.0.0-rc.4"
 
 //    id("nebula.netflixoss") version "9.2.2"
 
@@ -51,6 +52,11 @@ plugins {
 //     id("nebula.javadoc-jar") version "17.3.2"
 //     id("nebula.source-jar") version "17.3.2"
 //    id("nebula.maven-apache-license") version "17.3.2"
+}
+
+rewrite {
+    // Reformats Java Code
+    activeRecipe("org.openrewrite.java.format.AutoFormat")
 }
 
 java {
