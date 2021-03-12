@@ -83,17 +83,15 @@ nexusPublishing {
     clientTimeout.set(Duration.ofMinutes(3))
 }
 
-//signing {
-//    setRequired({
-//        // skip signing snapshots by default, unless you explicitly opt-in with -PforceSigning
-//        !project.version.toString().endsWith("SNAPSHOT") || project.hasProperty("forceSigning")
-//    })
-//    val signingKey = project.findProperty("signingKey") as String? ?: System.getenv("SIGNING_KEY")
-//    val signingPassword = project.findProperty("signingPassword") as String? ?: System.getenv("SIGNING_PASSWORD")
-//    useInMemoryPgpKeys(signingKey, signingPassword)
-//    // useGpgCmd() // todo for local testing
-//    sign(publishing.publications["nebula"])
-//}
+signing {
+    setRequired({
+        !project.version.toString().endsWith("SNAPSHOT") || project.hasProperty("forceSigning")
+    })
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications["nebula"])
+}
 
 configurations.all {
     resolutionStrategy {
